@@ -1,0 +1,1 @@
+export const BASE_URL = process.env.NEXT_PUBLIC_FORE_SIGHT_BACKEND_URL
