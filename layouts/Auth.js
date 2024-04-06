@@ -1,11 +1,18 @@
-import React from "react";
-
-// components
-
+import React, { useEffect } from "react";
 import Navbar from "components/Navbars/AuthNavbar.js";
 import FooterSmall from "components/Footers/FooterSmall.js";
+import router from 'next/router';
+
 
 export default function Auth({ children }) {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('token');
+      if (token) {
+        router.push('/admin/dashboard')
+      }
+    }
+  }, [])
   return (
     <>
       <Navbar transparent />

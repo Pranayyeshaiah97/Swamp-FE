@@ -5,7 +5,7 @@ import Link from "next/link";
 import Auth from "layouts/Auth.js";
 import axios from "axios";
 import { BASE_URL } from "library/constants";
-import router, { useRouter } from 'next/router';
+import router from 'next/router';
 
 export default function Login() {
   const [userData, setUserData] = useState({
@@ -17,10 +17,13 @@ export default function Login() {
     setUserData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const onLogin = async () => {
+  const onLogin = async (e) => {
+    e.preventDefault()
     try {
       const res = await axios.post(`${BASE_URL}/api/users/login`, userData)
-      if (res?.data?.accessToken) {
+      const token = res?.data?.accessToken
+      if (token) {
+        localStorage.setItem('token', token);
         router.push('/admin/dashboard')
       }
     } catch (error) {
@@ -63,7 +66,7 @@ export default function Login() {
                 <div className="text-black-500 text-center text-4xl mb-3 font-semibold pt-6">
                   <h1>Sign In</h1>
                 </div>
-                <form>
+                <form onSubmit={onLogin}>
                   <div className="relative w-full mb-3">
                     <label
                       className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -111,7 +114,7 @@ export default function Login() {
                   <div className="text-center mt-6">
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
+                      type="submit"
                       onClick={onLogin}
                     >
                       Sign In
@@ -123,7 +126,6 @@ export default function Login() {
             <div className=" mt-6 relative">
               <div className="text-right">
                 <a
-                  href="#pablo"
                   onClick={(e) => e.preventDefault()}
                   className="text-blueGray-200"
                 >

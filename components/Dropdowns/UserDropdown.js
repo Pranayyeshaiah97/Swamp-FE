@@ -1,5 +1,7 @@
 import React from "react";
 import { createPopper } from "@popperjs/core";
+import router from 'next/router';
+
 
 const UserDropdown = () => {
   // dropdown props
@@ -15,11 +17,16 @@ const UserDropdown = () => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
+
+  const onLogout = () => {
+    localStorage.removeItem('token');
+    router.push('/auth/login')
+  }
+
   return (
     <>
       <a
-        className="text-blueGray-500 block"
-        href="#pablo"
+        className="text-blueGray-500 block cursor-pointer"
         ref={btnDropdownRef}
         onClick={(e) => {
           e.preventDefault();
@@ -43,8 +50,7 @@ const UserDropdown = () => {
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
         }
       >
-        <a
-          href="#pablo"
+        {/* <a
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
@@ -53,7 +59,6 @@ const UserDropdown = () => {
           Action
         </a>
         <a
-          href="#pablo"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
@@ -62,24 +67,22 @@ const UserDropdown = () => {
           Another action
         </a>
         <a
-          href="#pablo"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={(e) => e.preventDefault()}
+          onClick={onLogout}
         >
-          Something else here
-        </a>
-        <div className="h-0 my-2 border border-solid border-blueGray-100" />
-        <a
-          href="#pablo"
+          Action
+        </a> */}
+        {/* <div className="h-0 my-2 border border-solid border-blueGray-100" /> */}
+        <button
           className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            "text-left text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700 focus:outline-none"
           }
-          onClick={(e) => e.preventDefault()}
+          onClick={onLogout}
         >
-          Seprated link
-        </a>
+          Logout
+        </button>
       </div>
     </>
   );

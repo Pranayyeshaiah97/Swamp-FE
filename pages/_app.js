@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 import App from "next/app";
 import Head from "next/head";
 import Router from "next/router";
+import { Provider } from 'react-redux'
+import store from "library/redux/store";
 
 import PageChange from "components/PageChange/PageChange.js";
 
@@ -64,7 +66,7 @@ export default class MyApp extends App {
     const Layout = Component.layout || (({ children }) => <>{children}</>);
 
     return (
-      <React.Fragment>
+      <Provider store={store}>
         <Head>
           <meta
             name="viewport"
@@ -76,7 +78,7 @@ export default class MyApp extends App {
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </React.Fragment>
+      </Provider>
     );
   }
 }
